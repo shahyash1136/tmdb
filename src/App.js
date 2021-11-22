@@ -1,14 +1,27 @@
 import React from "react";
 import "./App.scss";
-import Header from "./components/menu/Header";
-import Home from "./components/home";
+import {
+  WebConfigDataProvider,
+  MovieListDataProvider,
+  TVListDataProvider,
+  MovieShowDataProvider,
+  TVShowDataProvider,
+} from "./context/Providers";
+import Layout from "./Layout";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Home />
-    </>
+    <WebConfigDataProvider>
+      <MovieListDataProvider>
+        <TVListDataProvider>
+          <MovieShowDataProvider>
+            <TVShowDataProvider>
+              <Layout />
+            </TVShowDataProvider>
+          </MovieShowDataProvider>
+        </TVListDataProvider>
+      </MovieListDataProvider>
+    </WebConfigDataProvider>
   );
 }
 

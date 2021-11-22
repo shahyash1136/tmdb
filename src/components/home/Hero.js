@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import config from "../../common/config";
 
 const Hero = () => {
+  const [search, setSearch] = useState("");
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setSearch("");
+  };
   return (
     <div className='hero'>
       <div
@@ -16,11 +21,7 @@ const Hero = () => {
           </h3>
         </div>
         <div className='search'>
-          <form
-            id='inner_search_form'
-            action='/search'
-            method='get'
-            acceptCharset='utf-8'>
+          <form onSubmit={submitHandler} acceptCharset='utf-8'>
             <label>
               <input
                 dir='auto'
@@ -33,10 +34,13 @@ const Hero = () => {
                 autoComplete='off'
                 spellCheck='false'
                 placeholder='Search for a movie, tv show, person......'
-                value=''
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </label>
-            <input type='submit' value='Search' />
+            <button className='btn' type='submit'>
+              Search
+            </button>
           </form>
         </div>
       </div>

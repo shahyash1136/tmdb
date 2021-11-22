@@ -4,3 +4,15 @@ import { createContext } from "react";
 
 export const WebConfigDataContext = createContext(null);
 WebConfigDataContext.displayName = "WebConfigData";
+
+export const MovieListDataContext = createContext(null);
+MovieListDataContext.displayName = "MovieListData";
+
+export const TVListDataContext = createContext(null);
+TVListDataContext.displayName = "TVListData";
+
+export const MovieShowDataContext = createContext(null);
+MovieShowDataContext.displayName = "MovieShowData";
+
+export const TVShowDataContext = createContext(null);
+TVShowDataContext.displayName = "TVShowData";

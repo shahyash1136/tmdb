@@ -45,7 +45,6 @@
     }
     .search {
         width: 100%;
-        flex: 1;
         input#inner_search_v4 {
             width: 100%;
             height: 46px;
@@ -55,9 +54,15 @@
             @include border-radius(30px);
             padding: 10px 20px;
             font-size: 14px;
+            &:focus,
+            &:focus-visible {
+                border: none;
+                outline: none;
+            }
         }
-        input[type="submit"] {
+        .btn {
             height: 46px;
+            min-width: 100px;
             border: none;
             @include border-radius(30px);
             padding: 10px 26px;
