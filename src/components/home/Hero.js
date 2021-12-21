@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import config from "../../common/config";
 
 const Hero = () => {
   const [search, setSearch] = useState("");

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-function Consume(WrapperComponent, contexts) {
+export function Consume(WrapperComponent, contexts) {
   const Consumer = React.forwardRef((props, ref) => {
     let values = {};
     for (let key in contexts) {
@@ -17,5 +17,3 @@ function Consume(WrapperComponent, contexts) {
 
   return Consumer;
 }
-
-export default Consume;

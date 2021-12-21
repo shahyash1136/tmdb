@@ -1,5 +1,6 @@
 import config from "./config";
 import { Home } from "./Importer";
+import { Movies } from "./Importer";
 
 const data = [
   {
@@ -11,6 +12,21 @@ const data = [
     component: Home,
     isAuthReq: false,
     fallBackName: "Home",
+    isTabMenu: true,
+    loadWODep: false,
+    isStandAlone: true,
+    isCommonPage: true,
+    isSubMenu: false,
+  },
+  {
+    name: "movies",
+    nameCompare: "movies",
+    title: "movies",
+    path: `${config.BASE_DOMAIN}movies`,
+    group: "movies",
+    component: Movies,
+    isAuthReq: false,
+    fallBackName: "Movies",
     isTabMenu: true,
     loadWODep: false,
     isStandAlone: true,

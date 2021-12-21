@@ -7,6 +7,7 @@ import {
   TVShowDataContext,
   WebConfigDataContext,
 } from ".";
+import { getData } from "../common";
 import config from "../common/config";
 
 export const WebConfigDataProvider = (props) => {
@@ -19,9 +20,34 @@ export const WebConfigDataProvider = (props) => {
 };
 
 export const MovieListDataProvider = (props) => {
-  const [movieList, setMovieList] = useState({ test: "test1" });
+  const [discoverMovieList, setDiscoverMovieList] = useState(null);
+  const [discoverMovieIsLoading, setDiscoverMovieIsLoading] = useState(false);
+
+  const getDiscoverMovies = (parmasobj, cb) => {
+    setDiscoverMovieIsLoading(true);
+    let apiParams = {
+      endPoint: config.API_URL.discoverMoveies,
+      type: "GET",
+      name: config.API_Name.discover,
+      params: parmasobj,
+    };
+    getData(apiParams, (res) => {
+      setDiscoverMovieList(res);
+      setDiscoverMovieIsLoading(false);
+      if (cb) {
+        cb(res);
+      }
+    });
+  };
+
   return (
-    <MovieListDataContext.Provider value={{ data: movieList }}>
+    <MovieListDataContext.Provider
+      value={{
+        getDiscoverMovies,
+        discoverMovieList,
+        setDiscoverMovieIsLoading,
+        discoverMovieIsLoading,
+      }}>
       {props.children}
     </MovieListDataContext.Provider>
   );
