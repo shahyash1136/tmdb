@@ -1,11 +1,19 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
+import {
+  MovieListDataProvider,
+  TrendingDataProvider,
+} from "./context/Providers";
+import Layout from "./Layout";
+import "simplebar/dist/simplebar.min.css";
 
 function App() {
   return (
-    <div className='App'>
-      <div>Hello Word</div>
-    </div>
+    <MovieListDataProvider>
+      <TrendingDataProvider>
+        <Layout />
+      </TrendingDataProvider>
+    </MovieListDataProvider>
   );
 }
 

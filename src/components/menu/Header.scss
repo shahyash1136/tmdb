@@ -1,0 +1,95 @@
+@import "../../scss/variables";
+@import "../../scss/mixin";
+.menu {
+    background-color: $primary;
+    &__container {
+        height: 55px;
+        @extend %flexbox;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__left {
+        flex: 0 0 154px;
+        width: 154px;
+        margin-right: 20px;
+    }
+    ul {
+        list-style: none;
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 0px -10px;
+        li {
+            margin: 0px 10px;
+            position: relative;
+            padding: 10px 0;
+            font-family: $medium_font-family_secondary;
+            font-weight: $medium_font-weight;
+            span {
+                cursor: pointer;
+                color: $white;
+            }
+            &:hover {
+                .menu__sub {
+                    opacity: 1;
+                    visibility: visible;
+                    @include transform(translate(-50%, 0%));
+                }
+            }
+        }
+    }
+    &__sub {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        padding: 0px;
+        left: 50%;
+        @include transform(translate(-50%, 10%));
+        top: 40px;
+        @include border-radius(5px);
+        margin: 0;
+        border: 1px solid $white;
+        box-sizing: border-box;
+        line-height: 1.5;
+        @extend %flexbox;
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 120px;
+        background: $white;
+        z-index: 11;
+        @include transition(all, 0.5s, linear);
+        &::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            left: 50%;
+            @include transform(translateX(-50%) rotate(45deg));
+            background-color: $white;
+            top: -2px;
+            z-index: -1;
+        }
+        li {
+            margin: 0px;
+            font-size: 16px;
+            height: 35px;
+            padding: 0 10px;
+            font-family: $regular_font-family_secondary;
+            font-weight: $regular_font-weight;
+            a {
+                height: 100%;
+                text-decoration: none;
+                @extend %flexbox;
+                align-items: center;
+                justify-content: flex-start;
+                color: $primary;
+            }
+            span {
+                color: $primary;
+            }
+        }
+    }
+}
