@@ -1,27 +1,19 @@
 import React from "react";
 import "./App.scss";
 import {
-  WebConfigDataProvider,
   MovieListDataProvider,
-  TVListDataProvider,
-  MovieShowDataProvider,
-  TVShowDataProvider,
+  TrendingDataProvider,
 } from "./context/Providers";
 import Layout from "./Layout";
+import "simplebar/dist/simplebar.min.css";
 
 function App() {
   return (
-    <WebConfigDataProvider>
-      <MovieListDataProvider>
-        <TVListDataProvider>
-          <MovieShowDataProvider>
-            <TVShowDataProvider>
-              <Layout />
-            </TVShowDataProvider>
-          </MovieShowDataProvider>
-        </TVListDataProvider>
-      </MovieListDataProvider>
-    </WebConfigDataProvider>
+    <MovieListDataProvider>
+      <TrendingDataProvider>
+        <Layout />
+      </TrendingDataProvider>
+    </MovieListDataProvider>
   );
 }
 

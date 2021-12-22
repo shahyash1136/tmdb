@@ -1,23 +1,8 @@
 import React, { useState } from "react";
 
-import {
-  MovieListDataContext,
-  MovieShowDataContext,
-  TVListDataContext,
-  TVShowDataContext,
-  WebConfigDataContext,
-} from ".";
+import { MovieListDataContext, TrendingDataContext } from ".";
 import { getData } from "../common";
 import config from "../common/config";
-
-export const WebConfigDataProvider = (props) => {
-  const [movieList, setMovieList] = useState({ test: "test1" });
-  return (
-    <WebConfigDataContext.Provider value={{ data: movieList }}>
-      {props.children}
-    </WebConfigDataContext.Provider>
-  );
-};
 
 export const MovieListDataProvider = (props) => {
   const [discoverMovieList, setDiscoverMovieList] = useState(null);
@@ -26,7 +11,10 @@ export const MovieListDataProvider = (props) => {
   const getDiscoverMovies = (parmasobj, cb) => {
     setDiscoverMovieIsLoading(true);
     let apiParams = {
-      endPoint: config.API_URL.discoverMoveies,
+      endPoint: config.API_URL.discover.replace(
+        "{{media_type}}",
+        config.Media_Type.movie
+      ),
       type: "GET",
       name: config.API_Name.discover,
       params: parmasobj,
@@ -53,29 +41,28 @@ export const MovieListDataProvider = (props) => {
   );
 };
 
-export const TVListDataProvider = (props) => {
-  const [movieList, setMovieList] = useState({ test: "test1" });
-  return (
-    <TVListDataContext.Provider value={{ data: movieList }}>
-      {props.children}
-    </TVListDataContext.Provider>
-  );
-};
+export const TrendingDataProvider = (props) => {
+  const [trendingData, setTrendingData] = useState(null);
+  const getTrendingData = (timeWindow, parmasobj, cb) => {
+    let apiParams = {
+      endPoint: config.API_URL.trending
+        .replace("{{media_type}}", config.Media_Type.all)
+        .replace("{{time_window}}", timeWindow),
+      type: "GET",
+      name: config.API_Name.trending,
+      params: parmasobj,
+    };
+    getData(apiParams, (res) => {
+      setTrendingData(res);
+      if (cb) {
+        cb(res);
+      }
+    });
+  };
 
-export const MovieShowDataProvider = (props) => {
-  const [movieList, setMovieList] = useState({ test: "test1" });
   return (
-    <MovieShowDataContext.Provider value={{ data: movieList }}>
+    <TrendingDataContext.Provider value={{ getTrendingData, trendingData }}>
       {props.children}
-    </MovieShowDataContext.Provider>
-  );
-};
-
-export const TVShowDataProvider = (props) => {
-  const [movieList, setMovieList] = useState({ test: "test1" });
-  return (
-    <TVShowDataContext.Provider value={{ data: movieList }}>
-      {props.children}
-    </TVShowDataContext.Provider>
+    </TrendingDataContext.Provider>
   );
 };

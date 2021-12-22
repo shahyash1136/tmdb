@@ -8,13 +8,26 @@ config.API_BASE_URL = "https://api.themoviedb.org/3/";
 config.API_KEY = process.env.REACT_APP_API_KEY;
 config.lang = "en-US";
 
+config.Media_Type = {
+  all: "all",
+  movie: "movie",
+  tv: "tv",
+  person: "person",
+};
+
+config.Time_Window = {
+  day: "day",
+  week: "week",
+};
+
 config.API_Name = {
   discover: "discover",
+  trending: "trending",
 };
 
 config.API_URL = {
-  discoverMoveies: `${config.API_BASE_URL}${config.API_Name.discover}/movie/`,
-  discoverTVs: `${config.API_BASE_URL}${config.API_Name.discover}discover/tv/`,
+  discover: `${config.API_BASE_URL}${config.API_Name.discover}/{{media_type}}`,
+  trending: `${config.API_BASE_URL}${config.API_Name.trending}/{{media_type}}/{{time_window}}`,
 };
 
 config.Bar_Color = {

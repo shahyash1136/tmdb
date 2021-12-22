@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Consume } from "../context/Consumer";
-import { MovieListDataContext } from "../context";
+import { MovieListDataContext, TrendingDataContext } from "../context";
 import { Route, Switch } from "react-router-dom";
 import config from "../common/config";
 import Header from "../components/menu/Header";
@@ -14,14 +14,24 @@ function Index(props) {
       props.MovieListData.getDiscoverMovies(
         {
           api_key: config.API_KEY,
-          page: /* Math.floor(Math.random() * 500) + */ 1,
+          page: 1,
         },
         () => {}
       );
+    props.TrendingData.getTrendingData(
+      config.Time_Window.day,
+      { api_key: config.API_KEY },
+      () => {}
+    );
   }, []);
 
   const goAhead = () => {
-    if (props.MovieListData && props.MovieListData.discoverMovieList) {
+    if (
+      props.MovieListData &&
+      props.MovieListData.discoverMovieList &&
+      props.TrendingData &&
+      props.TrendingData.trendingData
+    ) {
       return true;
     } else {
       return false;
@@ -47,4 +57,4 @@ function Index(props) {
   );
 }
 
-export default Consume(Index, [MovieListDataContext]);
+export default Consume(Index, [MovieListDataContext, TrendingDataContext]);
