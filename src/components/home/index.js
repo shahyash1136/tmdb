@@ -6,6 +6,7 @@ import Card from "../Card/Card";
 import "./home.scss";
 import Trending from "./Trending";
 import SimpleBar from "simplebar-react";
+import People from "./People";
 
 const Index = (props) => {
   const { results } = props.MovieListData.discoverMovieList;
@@ -14,7 +15,7 @@ const Index = (props) => {
       <div className='main__container'>
         <Hero />
         <Trending />
-        <div className='card__list'>
+        {/* <div className='card__list'>
           <SimpleBar forceVisible='x' autoHide={false}>
             <div className='card__container'>
               {results.map((result) => {
@@ -22,7 +23,8 @@ const Index = (props) => {
               })}
             </div>
           </SimpleBar>
-        </div>
+        </div> */}
+        <People />
       </div>
     </div>
   );

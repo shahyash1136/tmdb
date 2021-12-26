@@ -23,11 +23,13 @@ config.Time_Window = {
 config.API_Name = {
   discover: "discover",
   trending: "trending",
+  person: "person",
 };
 
 config.API_URL = {
   discover: `${config.API_BASE_URL}${config.API_Name.discover}/{{media_type}}`,
   trending: `${config.API_BASE_URL}${config.API_Name.trending}/{{media_type}}/{{time_window}}`,
+  popularPerson: `${config.API_BASE_URL}${config.API_Name.person}/popular`,
 };
 
 config.Bar_Color = {

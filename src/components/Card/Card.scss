@@ -1,9 +1,20 @@
 @import "../../scss/variables";
 @import "../../scss/mixin";
 .card {
-    width: 150px;
-    min-width: 150px;
+    width: 180px;
+    min-width: 180px;
     padding: 0 10px;
+    .card {
+        &__people {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 30px;
+            .image {
+                @include border-radius(0px);
+                box-shadow: none;
+            }
+        }
+    }
     &__list {
         margin: 30px -10px;
     }
@@ -125,6 +136,30 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    .meta {
+        padding: 8px 10px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0;
+            width: 100%;
+            line-height: 1.2em;
+            margin: 0;
+            a {
+                color: $black;
+                font-size: 16px;
+                text-decoration: none;
+                font-weight: $bold_font-weight;
+                font-family: $bold_font-family_secondary;
             }
         }
     }

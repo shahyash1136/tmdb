@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { Consume } from "../context/Consumer";
-import { MovieListDataContext, TrendingDataContext } from "../context";
+import {
+  MovieListDataContext,
+  TrendingDataContext,
+  PersonDataContext,
+} from "../context";
 import { Route, Switch } from "react-router-dom";
 import config from "../common/config";
 import Header from "../components/menu/Header";
@@ -9,7 +13,7 @@ import Movies from "../components/movies";
 
 function Index(props) {
   useEffect(() => {
-    !props.MovieListData.discoverMovieIsLoading &&
+    !props.MovieListData.isLoading &&
       !props.MovieListData.discoverMovieList &&
       props.MovieListData.getDiscoverMovies(
         {
@@ -18,11 +22,21 @@ function Index(props) {
         },
         () => {}
       );
-    props.TrendingData.getTrendingData(
-      config.Time_Window.day,
-      { api_key: config.API_KEY },
-      () => {}
-    );
+    !props.TrendingData.isLoading &&
+      props.TrendingData.getTrendingData(
+        config.Time_Window.day,
+        { api_key: config.API_KEY },
+        () => {}
+      );
+    !props.PersonData.isLoading &&
+      !props.PersonData.peopleList &&
+      props.PersonData.getPeopleList(
+        {
+          api_key: config.API_KEY,
+          page: 1,
+        },
+        () => {}
+      );
   }, []);
 
   const goAhead = () => {
@@ -30,7 +44,9 @@ function Index(props) {
       props.MovieListData &&
       props.MovieListData.discoverMovieList &&
       props.TrendingData &&
-      props.TrendingData.trendingData
+      props.TrendingData.trendingData &&
+      props.PersonData &&
+      props.PersonData.peopleList
     ) {
       return true;
     } else {
@@ -57,4 +73,8 @@ function Index(props) {
   );
 }
 
-export default Consume(Index, [MovieListDataContext, TrendingDataContext]);
+export default Consume(Index, [
+  MovieListDataContext,
+  TrendingDataContext,
+  PersonDataContext,
+]);

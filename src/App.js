@@ -2,6 +2,7 @@ import React from "react";
 import "./App.scss";
 import {
   MovieListDataProvider,
+  PersonDataProvider,
   TrendingDataProvider,
 } from "./context/Providers";
 import Layout from "./Layout";
@@ -11,7 +12,9 @@ function App() {
   return (
     <MovieListDataProvider>
       <TrendingDataProvider>
-        <Layout />
+        <PersonDataProvider>
+          <Layout />
+        </PersonDataProvider>
       </TrendingDataProvider>
     </MovieListDataProvider>
   );

@@ -7,3 +7,6 @@ MovieListDataContext.displayName = "MovieListData";
 
 export const TrendingDataContext = createContext(null);
 TrendingDataContext.displayName = "TrendingData";
+
+export const PersonDataContext = createContext(null);
+PersonDataContext.displayName = "PersonData";

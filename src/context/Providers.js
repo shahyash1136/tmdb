@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 
-import { MovieListDataContext, TrendingDataContext } from ".";
+import {
+  MovieListDataContext,
+  TrendingDataContext,
+  PersonDataContext,
+} from ".";
 import { getData } from "../common";
 import config from "../common/config";
 
 export const MovieListDataProvider = (props) => {
   const [discoverMovieList, setDiscoverMovieList] = useState(null);
-  const [discoverMovieIsLoading, setDiscoverMovieIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getDiscoverMovies = (parmasobj, cb) => {
-    setDiscoverMovieIsLoading(true);
+    setIsLoading(true);
     let apiParams = {
       endPoint: config.API_URL.discover.replace(
         "{{media_type}}",
@@ -21,7 +25,7 @@ export const MovieListDataProvider = (props) => {
     };
     getData(apiParams, (res) => {
       setDiscoverMovieList(res);
-      setDiscoverMovieIsLoading(false);
+      setIsLoading(false);
       if (cb) {
         cb(res);
       }
@@ -33,8 +37,8 @@ export const MovieListDataProvider = (props) => {
       value={{
         getDiscoverMovies,
         discoverMovieList,
-        setDiscoverMovieIsLoading,
-        discoverMovieIsLoading,
+        setIsLoading,
+        isLoading,
       }}>
       {props.children}
     </MovieListDataContext.Provider>
@@ -43,7 +47,9 @@ export const MovieListDataProvider = (props) => {
 
 export const TrendingDataProvider = (props) => {
   const [trendingData, setTrendingData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const getTrendingData = (timeWindow, parmasobj, cb) => {
+    setIsLoading(true);
     let apiParams = {
       endPoint: config.API_URL.trending
         .replace("{{media_type}}", config.Media_Type.all)
@@ -54,6 +60,7 @@ export const TrendingDataProvider = (props) => {
     };
     getData(apiParams, (res) => {
       setTrendingData(res);
+      setIsLoading(false);
       if (cb) {
         cb(res);
       }
@@ -61,8 +68,35 @@ export const TrendingDataProvider = (props) => {
   };
 
   return (
-    <TrendingDataContext.Provider value={{ getTrendingData, trendingData }}>
+    <TrendingDataContext.Provider
+      value={{ getTrendingData, trendingData, isLoading }}>
       {props.children}
     </TrendingDataContext.Provider>
+  );
+};
+
+export const PersonDataProvider = (props) => {
+  const [peopleList, setPeopleList] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const getPeopleList = (parmasobj, cb) => {
+    setIsLoading(true);
+    let apiParams = {
+      endPoint: config.API_URL.popularPerson,
+      type: "GET",
+      params: parmasobj,
+    };
+    getData(apiParams, (res) => {
+      setPeopleList(res);
+      setIsLoading(false);
+      if (cb) {
+        cb(res);
+      }
+    });
+  };
+  return (
+    <PersonDataContext.Provider
+      value={{ peopleList, getPeopleList, isLoading }}>
+      {props.children}
+    </PersonDataContext.Provider>
   );
 };
